@@ -1,0 +1,75 @@
+.about-project {
+  margin: 0 auto;
+  padding: 114px 70px 100px;
+  background-color: #FAFAFA;
+}
+
+.about-project__two-columns {
+  display: flex;
+  justify-content: space-between;
+  margin: 70px 0 110px;
+}
+
+.about-project__description {
+  max-width: 550px;
+}
+
+.about-project__subtitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: #000000;
+  margin: 0;
+}
+
+.about-project__paragraph {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #000;
+  margin: 26px 0 0;
+}
+
+.about-project__timeline {
+  display: flex;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.about-project__period {
+  padding: 9px 0;
+  margin: 0;
+  color: #A0A0A0;
+}
+
+.about-project__period_backend-time {
+  color: #FFF;
+  background-color: #3456F3;
+  width: 20%;
+}
+
+.about-project__period_frontend-time {
+  color: #000;
+  background-color: #F2F2F2;
+  width: 80%;
+}
+
+.about-project__period_backend {
+  width: 20%;
+  margin-top: 5px;
+}
+
+.about-project__period_frontend {
+  width: 80%;
+  margin-top: 5px;
+}

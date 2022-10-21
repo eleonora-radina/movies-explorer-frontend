@@ -1,13 +1,11 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url('./vendor/normalize.css');
+@import url('../src/vendor/fonts/inter.css');
+@import url('./components/App/app.css');
+@import url('./components/Header/header.css');
+@import url('./components/Main/main.css');
+@import url('./components/Main/Promo/promo.css');
+@import url('./components/Main/AboutProject/about-project.css');
+@import url('./components/Main/Techs/techs.css');
+@import url('./components/Main/AboutMe/about-me.css');
+@import url('./components/Main/Portfolio/portfolio.css');
+@import url('./components/Footer/footer.css');
