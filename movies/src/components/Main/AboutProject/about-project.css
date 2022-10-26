@@ -73,3 +73,78 @@
   width: 80%;
   margin-top: 5px;
 }
+
+@media (max-width: 1100px) {
+  .about-project__description {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 877px) {
+  .about-project__description {
+    max-width: 319px;
+  }
+}
+
+@media (max-width: 790px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+  
+  .about-project__paragraph {
+    margin-top: 22px;
+    font-size: 12px;
+  }
+
+  .about-project__two-columns {
+    margin-bottom: 93px;
+  }
+}
+
+@media (max-width: 730px) {
+  .about-project {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .about-project__two-columns {
+    flex-direction: column;
+    row-gap: 56px;
+    margin: 60px 0;
+  }
+  .about-project__description {
+    max-width: 615px;
+  }
+  .about-project__paragraph {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-project {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .about-project__subtitle {
+    font-size: 18px;
+  }
+  .about-project__paragraph {
+    font-size: 11px;
+  }
+
+  .about-project__period_backend-time {
+    width: 35%;
+    font-size: 11px;
+  }
+  .about-project__period_frontend-time {
+    width: 65%;
+    font-size: 11px;
+  }
+  .about-project__period_backend {
+    width: 35%;
+    font-size: 11px;
+  }
+  .about-project__period_frontend {
+    width: 65%;
+    font-size: 11px;
+  }
+}

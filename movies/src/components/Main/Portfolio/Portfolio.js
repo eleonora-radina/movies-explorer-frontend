@@ -5,19 +5,18 @@ function Portfolio() {
   return (
     <div className='portfolio'>
       <h2 className='portfolio__title'>Портфолио</h2>
-
-      <div className='portfolio__link-zone'>
-        <h3 className='portfolio__link'> Статичный сайт</h3>
-        <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'></img>
-      </div>
-      <div className='portfolio__link-zone'>
-        <h3 className='portfolio__link'>Адаптивный сайт</h3>
-        <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'></img>
-      </div>
-      <div className='portfolio__link-zone'>
-        <h3 className='portfolio__link'>Одностраничное приложение</h3>
-        <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'></img>
-      </div>
+      <a href='https://eleonora-radina.github.io/russian-travel/' target="_blank" className='portfolio__link-zone' rel="noreferrer">
+          <h3 className='portfolio__link-text'> Статичный сайт</h3>
+          <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'/>
+      </a>
+      <a href='https://eleonora-radina.github.io/russian-travel/' target="_blank" className='portfolio__link-zone' rel="noreferrer">
+          <h3 className='portfolio__link-text'>Адаптивный сайт</h3>
+          <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'/>
+      </a>
+      <a href='https://noradina.nomoredomains.icu/' target="_blank" className='portfolio__link-zone' rel="noreferrer">
+          <h3 className='portfolio__link-text'>Одностраничное приложение</h3>
+          <img className='portfolio__arrow' src={arrow} alt='Стрелка для клика'/>
+      </a>
     </div>
   );
 }

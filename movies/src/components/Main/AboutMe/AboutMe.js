@@ -1,4 +1,4 @@
-import portrait from '../../../images/portrait.jpg'
+import portrait from '../../../images/portrait.jpg';
 
 function AboutMe() {
 
@@ -9,14 +9,14 @@ function AboutMe() {
 
       <div className='about-me__info'>
         <div className='about-me__text-zone'>
-          <h3 className='about-me__title'>Виталий</h3>
-          <p className='about-me__subtitle'>Фронтенд-разработчик, 30 лет</p>
+          <h3 className='about-me__title'>Элеонора</h3>
+          <p className='about-me__subtitle'>Фронтенд-разработчик, 23 года</p>
           <p className='about-me__paragraph'>Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена 
   и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
         
-          <p className='about-me__link'>Github</p>
+          <a href='https://github.com/eleonora-radina' target="_blank" className='about-me__link' rel="noreferrer">Github</a>
         </div>
-        <img className='about-me__image' src={portrait} alt='Фотография студента'></img>
+        <img className='about-me__image' src={portrait} alt='Фотография студента'/>
       </div>
     </div>
   );
