@@ -1,0 +1,36 @@
+.not-found {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.not-found__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000;
+  margin: 0;
+}
+
+.not-found__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.18;
+  text-align: center;
+  color: #000;
+  margin: 5px 0 184px;
+}
+
+.not-found__link {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+  color: #3456F3;
+  text-decoration: none;
+}

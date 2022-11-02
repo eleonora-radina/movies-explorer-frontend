@@ -1,0 +1,91 @@
+.promo {
+  margin: 0 auto;
+  padding: 0 70px;
+  background-color: #DDDEE3;
+  position: relative;
+  height: 100vh;
+  max-height: 560px;
+}
+
+.promo__title {
+  margin: 0;
+  padding: 50px 0;
+  max-width: 626px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+}
+
+.promo__img {
+  background-image: url('../../../images/curls.svg');
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 60px;
+  right: 70px;
+  width: 722px;
+  height: 244px;
+}
+
+@media (max-width: 870px) {
+  .promo {
+    max-height: 700px;
+  }
+
+  .promo__title {
+    padding-top: 80px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .promo__img {
+    bottom: 70px;
+    right: 44px;
+  }
+}
+
+@media (max-width: 790px) {
+  .promo {
+    max-height: 844px;
+    height: 120vh;
+  }
+  .promo__title {
+    padding-top: 300px;
+  }
+  .promo__img {
+    background-size: contain;
+    width: 680px;
+    height: 230px;
+  }
+}
+
+@media (max-width: 728px) {
+  .promo__img {
+    bottom: 40px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 690px) {
+  .promo__img {
+    right: 0px;
+  }
+}
+
+@media (max-width: 575px) {
+  .promo {
+    padding: 0;
+    max-height: 630px;
+    overflow: hidden;
+  }
+  .promo__title {
+    padding-top: 183px;
+    font-size: 31px;
+    line-height: 39px;
+    max-width: 300px;
+  }
+  .promo__img {
+    right: -100px;
+  }
+}

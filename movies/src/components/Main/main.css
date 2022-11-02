@@ -1,0 +1,22 @@
+.main__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.23;
+  letter-spacing: -0.04em;
+  color: #000;
+  margin: 0;
+}
+
+.main__line {
+  margin: 21px auto 0;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #000;
+}
+
+@media (max-width: 480px) {
+  .main__title {
+    font-size: 18px
+  }
+}
