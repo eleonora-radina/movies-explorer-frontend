@@ -99,4 +99,7 @@
   .techs__list {
     max-width: 200px;
   }
+  .techs {
+    background-color: #fafafa;
+  }
 }
