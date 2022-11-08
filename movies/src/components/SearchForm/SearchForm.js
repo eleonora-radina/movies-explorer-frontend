@@ -43,7 +43,10 @@ function SearchForm(props) {
         </button>
       </form>
       </div>
-      <Switch />
+      <Switch 
+        isShortFilms={props.isShortFilms}
+        handleSwitchClick={props.handleSwitchClick}
+      />
     </div>
   )
 }

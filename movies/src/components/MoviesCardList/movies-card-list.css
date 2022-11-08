@@ -7,7 +7,7 @@
 
 .movies-card-list__zone {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   list-style: none;
   gap: 37px 24px;
@@ -17,6 +17,7 @@
 @media (max-width: 1279px) {
   .movies-card-list__zone {
     padding: 0 100px;
+    justify-content: space-between;
   }
 }
 

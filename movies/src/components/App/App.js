@@ -27,7 +27,20 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMovie, setSavedMovie] = useState([]);
-  const [moviesSearch, setMoviesSearch] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+
+  const [isShortFilms, setIsShortFilms] = useState(false);
+  const [isShortSavedFilms, setIsShortSavedFilms] = useState(false);
+
+  useEffect(() => {
+    moviesApi.getMovies()
+      .then((movies) => {
+        setMovies(movies);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     mainApi.getUser()
@@ -40,15 +53,7 @@ function App() {
   }, [loggedIn, history]);
 
   useEffect(() => {
-    moviesApi.getMovies()
-      .then((movies) => {
-        setMovies(movies);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    mainApi.getSavedMovies()
+      mainApi.getSavedMovies()
       .then((savedMovies) => {
         setSavedMovies(savedMovies);
       })
@@ -82,8 +87,12 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         setCurrentUser({});
+        setSavedMovies([]);
         localStorage.removeItem('search');
-        localStorage.removeItem('searchMovies');
+        localStorage.removeItem('searchedMovies');
+        localStorage.removeItem('filteredMovies');
+        localStorage.removeItem('isShortFilms');
+        localStorage.removeItem('searchedSavedMovies');
         history.push("/");
       })
       .catch((err) => {
@@ -99,29 +108,91 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  useEffect(() => {
+    setIsShortSavedFilms(false);
+    
+    if (location.pathname === '/movies') {
+      if (localStorage.getItem('isShortFilms') === null) {
+        setIsShortFilms(false);
+      } else { 
+        setIsShortFilms(JSON.parse(localStorage.getItem('isShortFilms'))); 
+      }
+  
+      if ((JSON.parse(localStorage.getItem('filteredMovies'))) === null) {
+        setFilteredMovies([]);
+      } else { 
+        setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies'))); 
+      }
+    }
+  }, [location.pathname])
+
   function searchMovies(film) {
     let filter = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(film.toLowerCase());
     });
-    setMoviesSearch(filter);
+    setSearchedMovies(filter);
     localStorage.setItem('search', film);
-    localStorage.setItem('searchMovies', JSON.stringify(filter));
+    localStorage.setItem('searchedMovies', JSON.stringify(filter));
+  }
+
+  function handleSwitchClick() {
+    setIsShortFilms(!isShortFilms);
+    localStorage.setItem('isShortFilms', !isShortFilms);
   }
 
   useEffect(() => {
-    if (localStorage.getItem('searchMovies') === null) {
-      setMoviesSearch([]);
-    } else {
-      setMoviesSearch(JSON.parse(localStorage.getItem('searchMovies')));
+    if (location.pathname === '/movies') {
+      const searchedForFilter = JSON.parse(localStorage.getItem('searchedMovies'));
+      if (searchedForFilter !== null) {
+  
+        if (isShortFilms === false) {
+          const filterFilms = searchedForFilter.filter((movie) => {
+            return (movie.duration > 40);
+          });
+          setFilteredMovies(filterFilms);
+          localStorage.setItem('filteredMovies', JSON.stringify(filterFilms));
+  
+        } else {
+          const filterShortFilms = searchedForFilter.filter((movie) => {
+            return (movie.duration <= 40);
+          });
+          setFilteredMovies(filterShortFilms);
+          localStorage.setItem('filteredMovies', JSON.stringify(filterShortFilms));
+        }
+      }
     }
-  }, [location.pathname])
+  }, [isShortFilms, location.pathname, searchedMovies])
 
   function searchSavedMovies(film) {
     const filter = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(film.toLowerCase());
     });
     setSavedMovies(filter);
+    localStorage.setItem('searchedSavedMovies', JSON.stringify(filter));
   }
+
+  function handleSwitchClickSaved() {
+    setIsShortSavedFilms(!isShortSavedFilms);
+  }
+
+  useEffect(() => {
+    if (location.pathname === '/saved-movies') {
+      if (savedMovies !== null) {
+        if (isShortSavedFilms === false) {
+          const filterFilms = savedMovies.filter((movie) => {
+            return (movie.duration > 40);
+          });
+          setFilteredSavedMovies(filterFilms);
+
+        } else {
+          const filterShortFilms = savedMovies.filter((movie) => {
+            return (movie.duration <= 40);
+          });
+          setFilteredSavedMovies(filterShortFilms);
+        }
+      }
+    }
+  }, [isShortSavedFilms, location.pathname, savedMovies])
 
   function deleteMovie(movie) {
     mainApi.deleteSavedMovie(movie)
@@ -146,7 +217,7 @@ function App() {
     } else { saveMovie(movie); }
   }
 
-  function handleSavedCardLike(movie) {
+  function handleSavedCardDelete(movie) {
     deleteMovie(movie);
   }
 
@@ -165,21 +236,25 @@ function App() {
             <ProtectedRoute
               path="/movies"
               component={Movies}
-              movies={moviesSearch}
+              movies={filteredMovies}
               searchMovies={searchMovies}
               onCardLike={handleCardLike}
               savedMovies={savedMovies}
               loggedIn={loggedIn}
+              isShortFilms={isShortFilms}
+              handleSwitchClick={handleSwitchClick}
             />
 
             <ProtectedRoute
               path="/saved-movies"
               component={SavedMovies}
-              movies={savedMovies}
+              movies={filteredSavedMovies}
               searchMovies={searchSavedMovies}
-              onCardLike={handleSavedCardLike}
+              onCardLike={handleSavedCardDelete}
               savedMovies={savedMovies}
               loggedIn={loggedIn}
+              isShortFilms={isShortSavedFilms}
+              handleSwitchClick={handleSwitchClickSaved}
             />
 
             <ProtectedRoute

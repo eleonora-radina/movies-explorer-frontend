@@ -6,6 +6,8 @@ function Movies(props) {
     <div className='movies'>
       <SearchForm 
         searchMovies={props.searchMovies}
+        isShortFilms={props.isShortFilms}
+        handleSwitchClick={props.handleSwitchClick}
       />
       <MoviesCardList 
         movies={props.movies}
