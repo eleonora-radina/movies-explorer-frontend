@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -34,8 +34,10 @@ function App() {
   const [isShortSavedFilms, setIsShortSavedFilms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [numberOfMovies, setNumberOfMovies] = useState(12);
+  const [numberOfMovies, setNumberOfMovies] = useState(0);
   let filteredWithoutSlice = JSON.parse(localStorage.getItem('filteredWithoutSlice'));
+
+  const [size, setSize] = useState([0]);
 
   useEffect(() => {
     mainApi.getUser()
@@ -50,10 +52,10 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       mainApi.getSavedMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies);
-      })
-      .catch((err) => console.log(err));
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies);
+        })
+        .catch((err) => console.log(err));
     }
   }, [savedMovie, location.pathname, loggedIn]);
 
@@ -110,18 +112,18 @@ function App() {
   useEffect(() => {
     setIsShortSavedFilms(false);
     setNumberOfMovies(12);
-    
+
     if (location.pathname === '/movies') {
       if (localStorage.getItem('isShortFilms') === null) {
         setIsShortFilms(false);
-      } else { 
-        setIsShortFilms(JSON.parse(localStorage.getItem('isShortFilms'))); 
+      } else {
+        setIsShortFilms(JSON.parse(localStorage.getItem('isShortFilms')));
       }
-  
+
       if ((JSON.parse(localStorage.getItem('filteredMovies'))) === null) {
         setFilteredMovies([]);
-      } else { 
-        setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies'))); 
+      } else {
+        setFilteredMovies(JSON.parse(localStorage.getItem('filteredMovies')));
       }
     }
   }, [location.pathname])
@@ -130,24 +132,23 @@ function App() {
     let filter = moviesForSearch.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(film.toLowerCase());
     });
-    
+
     setSearchedMovies(filter);
     localStorage.setItem('search', film);
     localStorage.setItem('searchedMovies', JSON.stringify(filter));
   }
 
   function searchMovies(film) {
-    setNumberOfMovies(12);
     if (localStorage.getItem('moviesApi') === null) {
       setIsLoading(true);
       moviesApi.getMovies()
-      .then((movies) => {
-        setMovies(movies);
-        localStorage.setItem('moviesApi', JSON.stringify(movies));
-        filterFilms(film, movies)
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+        .then((movies) => {
+          setMovies(movies);
+          localStorage.setItem('moviesApi', JSON.stringify(movies));
+          filterFilms(film, movies)
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false));
     } else {
       filterFilms(film, (JSON.parse(localStorage.getItem('moviesApi'))));
     }
@@ -158,24 +159,56 @@ function App() {
     localStorage.setItem('isShortFilms', !isShortFilms);
   }
 
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize(window.innerWidth);
+    }
+
+    let resizeTimeout;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function () {
+        updateSize();
+      }, 1000)
+    })
+
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  useEffect(() => {
+    console.log(size);
+    if (size > 1280) {
+      setNumberOfMovies(12);
+    } else if (size < 762) {
+      setNumberOfMovies(5)
+    } else setNumberOfMovies(8);
+  }, [size, location.pathname, searchedMovies])
+
   function handleClickMore() {
-    setNumberOfMovies(numberOfMovies + 3);
+    if (size > 1280) {
+      setNumberOfMovies(numberOfMovies + 3);
+    } else if (size < 762) {
+      setNumberOfMovies(numberOfMovies + 2)
+    } else setNumberOfMovies(numberOfMovies + 2);
   }
 
   useEffect(() => {
     if (location.pathname === '/movies') {
+
       const searchedForFilter = JSON.parse(localStorage.getItem('searchedMovies'));
       if (searchedForFilter !== null) {
-  
+
         if (isShortFilms === false) {
           const filterFilmsWithoutSlice = searchedForFilter.filter((movie) => {
             return (movie.duration > 40);
           });
+
           let filterFilms = filterFilmsWithoutSlice.slice(0, numberOfMovies);
           setFilteredMovies(filterFilms);
           localStorage.setItem('filteredMovies', JSON.stringify(filterFilms));
           localStorage.setItem('filteredWithoutSlice', JSON.stringify(filterFilmsWithoutSlice));
-  
+
         } else {
           const filterShortFilmsWithoutSlice = searchedForFilter.filter((movie) => {
             return (movie.duration <= 40);
@@ -187,7 +220,7 @@ function App() {
         }
       }
     }
-  }, [isShortFilms, location.pathname, numberOfMovies, searchedMovies])
+  }, [isShortFilms, location.pathname, numberOfMovies, searchedMovies, size])
 
   function searchSavedMovies(film) {
     const filter = savedMovies.filter((movie) => {

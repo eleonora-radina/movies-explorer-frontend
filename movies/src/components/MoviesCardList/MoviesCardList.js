@@ -6,7 +6,7 @@ function MoviesCardList(props) {
   let location = useLocation();
   let isNeedButton = true;
   if (location.pathname === '/movies') {
-    if ((props.filteredWithoutSlice.length === props.movies.length) || (props.movies.length === 0)) {
+    if ((props.filteredWithoutSlice?.length === props.movies?.length) || (props.movies?.length === 0)) {
       isNeedButton = false;
     };
   }
