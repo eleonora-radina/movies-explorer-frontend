@@ -38,13 +38,16 @@ function App() {
   let filteredWithoutSlice = JSON.parse(localStorage.getItem('filteredWithoutSlice'));
 
   const [size, setSize] = useState([0]);
+  const [errorRegister, setErrorRegister] = useState('');
+  const [errorLogin, setErrorLogin] = useState('');
+  const [errorUpdate, setErrorUpdate] = useState('');
 
   useEffect(() => {
     mainApi.getUser()
       .then((userData) => {
         setLoggedIn(true);
         setCurrentUser(userData);
-        history.push('/movies');
+        history.push("/movies");
       })
       .catch((err) => console.log(err));
   }, [loggedIn, history]);
@@ -55,9 +58,12 @@ function App() {
         .then((savedMovies) => {
           setSavedMovies(savedMovies);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setSavedMovies([]);
+          console.log(err);
+        });
     }
-  }, [savedMovie, location.pathname, loggedIn]);
+  }, [savedMovie, loggedIn]);
 
   function handleRegister(data) {
     mainApi.register(data)
@@ -65,8 +71,9 @@ function App() {
         handleLogin(data);
         history.push("/movies");
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        console.log(error);
+        setErrorRegister(error);
       })
   }
 
@@ -76,8 +83,9 @@ function App() {
         setLoggedIn(true);
         history.push("/movies");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
+        setErrorLogin(error);
       });
   }
 
@@ -106,12 +114,17 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log(error);
+        setErrorUpdate(error);
+      });
   }
 
   useEffect(() => {
     setIsShortSavedFilms(false);
     setNumberOfMovies(12);
+    setErrorLogin('');
+    setErrorRegister('');
 
     if (location.pathname === '/movies') {
       if (localStorage.getItem('isShortFilms') === null) {
@@ -177,7 +190,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(size);
     if (size > 1280) {
       setNumberOfMovies(12);
     } else if (size < 762) {
@@ -325,17 +337,20 @@ function App() {
               onLogout={handleLogout}
               onUpdateUser={handleUpdateUser}
               loggedIn={loggedIn}
+              error = {errorUpdate}
             />
 
             <Route path="/signup">
               <Register
                 onRegister={handleRegister}
+                error = {errorRegister}
               />
             </Route>
 
             <Route path="/signin">
               <Login
                 onLogin={handleLogin}
+                error = {errorLogin}
               />
             </Route>
 

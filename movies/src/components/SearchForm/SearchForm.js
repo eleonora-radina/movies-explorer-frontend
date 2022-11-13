@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg'
 import search from '../../images/search.svg'
 import Switch from '../Switch/Switch';
+import MovieError from '../MovieError/MovieError'
 
 function SearchForm(props) {
   let location = useLocation();
@@ -43,10 +44,12 @@ function SearchForm(props) {
         </button>
       </form>
       </div>
+      
       <Switch 
         isShortFilms={props.isShortFilms}
         handleSwitchClick={props.handleSwitchClick}
       />
+      
     </div>
   )
 }
