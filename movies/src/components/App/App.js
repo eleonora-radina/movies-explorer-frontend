@@ -34,6 +34,8 @@ function App() {
   const [isShortSavedFilms, setIsShortSavedFilms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [searchedSavedMovies, setSearchedSavedMovies] = useState(null);
+
   const [numberOfMovies, setNumberOfMovies] = useState(0);
   let filteredWithoutSlice = JSON.parse(localStorage.getItem('filteredWithoutSlice'));
 
@@ -41,6 +43,7 @@ function App() {
   const [errorRegister, setErrorRegister] = useState('');
   const [errorLogin, setErrorLogin] = useState('');
   const [errorUpdate, setErrorUpdate] = useState('');
+  const [messageUpdate, setMessageUpdate] = useState(null)
 
   useEffect(() => {
     mainApi.getUser()
@@ -100,7 +103,6 @@ function App() {
         localStorage.removeItem('filteredMovies');
         localStorage.removeItem('isShortFilms');
         localStorage.removeItem('moviesApi');
-        localStorage.removeItem('searchedSavedMovies');
         localStorage.removeItem('filteredWithoutSlice');
         history.push("/");
       })
@@ -113,6 +115,7 @@ function App() {
     mainApi.editUserInfo(data)
       .then((userData) => {
         setCurrentUser(userData);
+        setMessageUpdate('Новые данные сохранены.')
       })
       .catch((error) => {
         console.log(error);
@@ -125,6 +128,9 @@ function App() {
     setNumberOfMovies(12);
     setErrorLogin('');
     setErrorRegister('');
+    setFilteredSavedMovies(savedMovies);
+    setSearchedSavedMovies(null);
+    setMessageUpdate(null)
 
     if (location.pathname === '/movies') {
       if (localStorage.getItem('isShortFilms') === null) {
@@ -238,8 +244,7 @@ function App() {
     const filter = savedMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(film.toLowerCase());
     });
-    setSavedMovies(filter);
-    localStorage.setItem('searchedSavedMovies', JSON.stringify(filter));
+    setSearchedSavedMovies(filter);
   }
 
   function handleSwitchClickSaved() {
@@ -248,22 +253,22 @@ function App() {
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
-      if (savedMovies !== null) {
+      if (searchedSavedMovies !== null) {
         if (isShortSavedFilms === false) {
-          const filterFilms = savedMovies.filter((movie) => {
+          const filterFilms = searchedSavedMovies.filter((movie) => {
             return (movie.duration > 40);
           });
           setFilteredSavedMovies(filterFilms);
 
         } else {
-          const filterShortFilms = savedMovies.filter((movie) => {
+          const filterShortFilms = searchedSavedMovies.filter((movie) => {
             return (movie.duration <= 40);
           });
           setFilteredSavedMovies(filterShortFilms);
         }
       }
     }
-  }, [isShortSavedFilms, location.pathname, savedMovies])
+  }, [isShortSavedFilms, location.pathname, searchedSavedMovies])
 
   function deleteMovie(movie) {
     mainApi.deleteSavedMovie(movie)
@@ -297,7 +302,9 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
 
-          <Header />
+          <Header 
+            loggedIn={loggedIn}
+          />
 
           <Switch>
             <Route exact path="/">
@@ -338,6 +345,7 @@ function App() {
               onUpdateUser={handleUpdateUser}
               loggedIn={loggedIn}
               error = {errorUpdate}
+              message = {messageUpdate}
             />
 
             <Route path="/signup">
