@@ -54,7 +54,7 @@ function Login(props) {
             autoComplete="off"
             id='email-input'
             onChange={handleEmailChange}
-            pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+            pattern="(^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.[a-zA-Z]{2,3})+$)"
           />
           <span className="auth__form-error">{errorEmail}</span>
         </label>

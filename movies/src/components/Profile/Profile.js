@@ -83,13 +83,14 @@ function Profile(props) {
             required
             id='email-input'
             value={email || ''}
-            pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+            pattern="(^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.[a-zA-Z]{2,3})+$)"
             onChange={handleEmailChange}
           />
           <span className="profile__form-error">{errorEmail}</span>
         </label>
 
         <p className="auth__error">{props.error}</p>
+        <p className="profile__message">{props.message}</p>
 
         <button 
           className={`profile__edit-button ${isValid ? 'profile__edit-button_valid' : ''}`}
