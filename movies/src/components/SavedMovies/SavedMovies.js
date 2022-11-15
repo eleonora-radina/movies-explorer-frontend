@@ -11,7 +11,8 @@ function SavedMovies(props) {
         handleSwitchClick={props.handleSwitchClick}
       />
 
-      {(!props.movies.length) && <MovieError />}
+      { props.errorSearch && <MovieError errorSearch={props.errorSearch}/>}
+      { (!props.movies.length && !props.errorSearch) && <MovieError />}
 
       <MoviesCardList 
         movies={props.movies}

@@ -1,7 +1,7 @@
-function MovieError() {
+function MovieError(props) {
   
   return(
-    <p className='movie-error'>{"Ничего не найдено"}</p>
+    <p className='movie-error'>{props.errorSearch ? props.errorSearch : "Ничего не найдено"}</p>
   )
 }
 

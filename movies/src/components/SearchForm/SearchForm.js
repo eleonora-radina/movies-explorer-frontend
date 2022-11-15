@@ -28,7 +28,7 @@ function SearchForm(props) {
     <div className='search'>
     <div className='search-form'>
       <img src={searchIcon} alt='Картинка поиск' className='search-form__icon'/>
-      <form className='search-form__form' onSubmit={handleSubmit}>
+      <form className='search-form__form' onSubmit={handleSubmit} noValidate>
         <input 
           className='search-form__input'
           type='text'

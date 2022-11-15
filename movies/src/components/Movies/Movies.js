@@ -15,7 +15,8 @@ function Movies(props) {
       
       { props.isLoading && <Preloader /> }
 
-      { ((localStorage.getItem('moviesApi') !== null) && !props.movies.length) && <MovieError />}
+      { props.errorSearch && <MovieError errorSearch={props.errorSearch}/>}
+      { ((localStorage.getItem('moviesApi') !== null) && !props.movies.length && (!props.errorSearch)) && <MovieError />}
 
       <MoviesCardList 
         movies={props.movies}

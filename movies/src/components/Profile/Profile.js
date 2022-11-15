@@ -9,6 +9,7 @@ function Profile(props) {
   const [email, setEmail] = useState('');
   const [errorName, setErrorName] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
+  const [errorForm, setErrorForm] = useState(null);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
@@ -20,31 +21,40 @@ function Profile(props) {
 
   function handleNameChange(e) {
     setName(e.target.value);
-    if (e.target.validity) {
-      e.target.validity.patternMismatch
-        ? setErrorName(`Имя должно содержать только буквы, пробел или дефис`)
-        : setErrorName(e.target.validationMessage);
-    } else {
-      setErrorName("");
+      if (e.target.validity) {
+        e.target.validity.patternMismatch
+          ? setErrorName(`Имя должно содержать только буквы, пробел или дефис`)
+          : setErrorName(e.target.validationMessage);
+      } else {
+        setErrorName("");
+      }
     }
-  }
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
-    if (e.target.validity) {
-      e.target.validity.patternMismatch
-        ? setErrorEmail(`Введите данные в указанном формате: info@ya.ru`)
-        : setErrorEmail(e.target.validationMessage);
-    } else {
-      setErrorEmail("");
+      if (e.target.validity) {
+        e.target.validity.patternMismatch
+          ? setErrorEmail(`Введите данные в указанном формате: info@ya.ru`)
+          : setErrorEmail(e.target.validationMessage);
+      } else {
+        setErrorEmail("");
+      }
     }
-  }
 
   useEffect(() => {
     (errorName === "" && errorEmail === "") 
     ? setIsValid(true) 
     : setIsValid(false);
   }, [errorName, errorEmail])
+
+  useEffect(() => {
+    if ((name === currentUser.name) && (email === currentUser.email)) {
+      setIsValid(false);
+    } else {
+      setErrorForm(null)
+      setIsValid(true);
+    }
+  }, [name, currentUser.name, currentUser.email, email])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -89,8 +99,8 @@ function Profile(props) {
           <span className="profile__form-error">{errorEmail}</span>
         </label>
 
-        <p className="auth__error">{props.error}</p>
-        <p className="profile__message">{props.message}</p>
+        <p className="auth__error">{errorForm ? errorForm : props.error}</p>
+        <p className="profile__message">{errorForm ? '' : props.message}</p>
 
         <button 
           className={`profile__edit-button ${isValid ? 'profile__edit-button_valid' : ''}`}
