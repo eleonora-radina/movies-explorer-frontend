@@ -6,7 +6,7 @@ function MobileNavigation() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='mobile-navigation'>
+    <div className={`mobile-navigation ${open ? "mobile-navigation_open" : ''}`}>
       <button
         className={`mobile-navigation__humburger-icon ${open ? "mobile-navigation__humburger-icon_open" : ''}`}
         onClick={() => setOpen(true)}
@@ -15,8 +15,8 @@ function MobileNavigation() {
 
       <div className={`mobile-navigation__background ${open ? 'mobile-navigation__background_open' : ''}`}>
         <div className={`mobile-navigation__menu ${open ? 'mobile-navigation__menu_open' : ''}`}>
-          <button 
-            className='mobile-navigation__button-exit' 
+          <button
+            className='mobile-navigation__button-exit'
             onClick={() => setOpen(false)}
             type="button"
           />
@@ -28,7 +28,7 @@ function MobileNavigation() {
                   className='mobile-navigation__link'
                   activeClassName='mobile-navigation__link_active'
                   onClick={() => setOpen(false)} >
-                    Главная
+                  Главная
                 </NavLink>
               </li>
               <li>
@@ -37,7 +37,7 @@ function MobileNavigation() {
                   className='mobile-navigation__link'
                   activeClassName='mobile-navigation__link_active'
                   onClick={() => setOpen(false)} >
-                    Фильмы
+                  Фильмы
                 </NavLink>
               </li>
               <li>
@@ -46,16 +46,16 @@ function MobileNavigation() {
                   className='mobile-navigation__link'
                   activeClassName='mobile-navigation__link_active'
                   onClick={() => setOpen(false)} >
-                    Сохраненные фильмы
+                  Сохраненные фильмы
                 </NavLink>
               </li>
             </ul>
             <Link to='/profile'>
-              <button 
-                className='navigation__button_style_profile mobile-navigation__button' 
-                onClick={() => setOpen(false)} 
+              <button
+                className='navigation__button_style_profile mobile-navigation__button'
+                onClick={() => setOpen(false)}
                 type="button" >
-                  Аккаунт
+                Аккаунт
               </button>
             </Link>
           </nav>

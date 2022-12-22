@@ -4,7 +4,7 @@ import NavigationAuth from '../NavigationAuth/NavigationAuth';
 import NavigationMovie from '../NavigationMovie/NavigationMovie';
 import MobileNavigation from '../MobileNavigation/MobileNavigation';
 
-function Header() {
+function Header(props) {
   let location = useLocation();
   let classHeader, classHeaderLogo;
   let pathForNavAuth = false;
@@ -12,7 +12,9 @@ function Header() {
   
   switch(location.pathname) {
     case "/":
-      pathForNavAuth = true;
+      if (props.loggedIn) {
+        pathForMovieAuth = true;
+      } else pathForNavAuth = true;
       break;
     
     case "/movies":

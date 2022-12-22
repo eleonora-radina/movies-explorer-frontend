@@ -73,7 +73,7 @@
   .techs__list {
     row-gap: 10px;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
     max-width: 290px;
   }
 }

@@ -33,4 +33,7 @@
   text-align: center;
   color: #3456F3;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

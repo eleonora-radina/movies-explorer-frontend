@@ -1,23 +1,23 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import MovieError from '../MovieError/MovieError'
 
-import film1 from '../../images/film1.png'
-import film3 from '../../images/film3.png'
-
-const savedCards = [
-  {_id: 1, image: film1, title: '33 слова о дизайне', time: '1ч 47м', like: true},
-  {_id: 5, image: film1, title: '33 слова о дизайне', time: '1ч 47м', like: true},
-  {_id: 8, image: film3, title: 'В погоне за Бенкси', time: '1ч 42м', like: true},
-  {_id: 9, image: film1, title: '33 слова о дизайне', time: '1ч 47м', like: true}
-]
-
-
-function SavedMovies() {
+function SavedMovies(props) {
   return(
     <div className='movies'>
-      <SearchForm />
+      <SearchForm 
+        searchMovies={props.searchMovies}
+        isShortFilms={props.isShortFilms}
+        handleSwitchClick={props.handleSwitchClick}
+      />
+
+      { props.errorSearch && <MovieError errorSearch={props.errorSearch}/>}
+      { (!props.movies.length && !props.errorSearch) && <MovieError />}
+
       <MoviesCardList 
-        cards={savedCards}
+        movies={props.movies}
+        onCardLike = {props.onCardLike}
+        savedMovies={props.savedMovies}
       />
     </div>
   )

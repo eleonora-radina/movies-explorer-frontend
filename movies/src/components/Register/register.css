@@ -52,27 +52,41 @@
   font-weight: 500;
 }
 
+.auth__error {
+  font-size: 11px;
+  text-align: center;
+  margin: 38px 0 0;
+  padding: 0;
+  color: #FF004C;
+}
+
+.auth__error_login {
+  margin-top: 134px;
+}
+
 .auth__form-button {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.21;
-  color: #FFF;
-  background: #3456F3;
   border: none;
   border-radius: 3px;
   width: 100%;
-  margin: 69px 0 0;
+  margin: 20px 0 0;
   padding: 15px 0;
   transition: opacity 0.3s;
+  color: #C2C2C2;
+  background: #F8F8F8;
+  cursor: auto;
+}
+
+.auth__form-button_valid {
+  color: #FFF;
+  background: #3456F3;
   cursor: pointer;
 }
 
-.auth__form-button:hover {
+.auth__form-button_valid:hover {
   opacity: 0.7;
-}
-
-.auth__form-button_login {
-  margin-top: 165px;
 }
 
 .auth__text {
