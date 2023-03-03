@@ -1,5 +1,27 @@
-# movies-explorer-frontend
-Фронтенд часть проекта Movies Explorer
-https://noradina.movie.nomoredomains.icu/
+# Movies Explorer
+Дипломная работа в Яндекс.Практикуме на курсе Web-разработчик.
 
-Ссылка на макет Figma - https://disk.yandex.ru/d/oE_I3oLwRFQt5A
+Сервис, в котором можно найти фильмы по запросу и сохранить их в личном кабинете.
+
+
+Главная страница содержит информацию о дипломном проекте и студенте. 
+Необходимо войти или зарегистрироваться, чтобы перейти на страницу поиска фильмов.
+
+[Ссылка на проект](https://noradina.movie.nomoredomains.icu/)
+
+[Ссылка на макет Figma](https://disk.yandex.ru/d/oE_I3oLwRFQt5A)
+
+
+Бэкенд:
+- MoviesExplorer Api — сервис Яндекс.Практикума, содержащий массив всех фильмов.
+- [movies-explorer-api](https://github.com/eleonora-radina/movies-explorer-api) - API для аутентификации пользователей и сохранения фильмов
+
+
+## Инструкция по запуску:
+
+Проект можно запустить локально или посмотреть [здесь](https://noradina.movie.nomoredomains.icu/).
+
+Для локального запуска нужно:
+1. Перейти в папку "movies"
+2. Установить необходимые пакеты - **npm install**
+3. Запустить проект - **npm run start**
